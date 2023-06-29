@@ -26,15 +26,20 @@ void ClearConsole() {
 	system("CLS");
 }
 
+std::string optioMain(std::string& x) {
+	std::cout << "Pick a Option | ";
+	std::cin >> x;
+	return x;
+}
 
 int main()
 {
 	//Creating a vector with starter data
 	std::vector<Person> storage;
 
-	storage.push_back(Person{ "Mark","First","BaumStreet","5","07891239430", "1190", "Vienna","20.5.2000","89.000" });
+	storage.push_back(Person{ "Mark","First","BaumStreet","5","7891239430", "1190", "Vienna","19.5.2000","89.000" });
 	storage.push_back(Person{ "Stella","Parker","WaterStreet","9","05494239532", "1010", "Vienna","2.9.2004","92.000" });
-	storage.push_back(Person{ "Miles","Moral","BaumStreet","3","05891239430", "1190", "Vienna","19.2.2000","10.000" });
+	storage.push_back(Person{ "Miles","Moral","BaumStreet","5","789 123 9430", "1190", "Hallo","19.5.2000","10.000" });
 
 
 	std::string first;
@@ -52,16 +57,24 @@ int main()
 
 
 	do {
+		//Showing Options Ui
 		ClearConsole();
 		std::cout << "   [0] Show list   |   [1] New user   |   [2] Delete user   |   [3] Fitler users   |";
-
 		Space();
 
-		if (mainOption == "3") {
+		//Displaying all Users
+		if (mainOption == "0") {
+			while (true) {
+				for (const auto& person : storage) {
+					std::cout << person.allInfos << std::endl;
+				}
+				Space();
+
+				optioMain(mainOption);
+				break;
+			}
 		}
-		else if (mainOption == "2") {
-	
-		}
+		//Costume User Input
 		else if (mainOption == "1") {
 			while (true) {
 				try
@@ -103,18 +116,43 @@ int main()
 				}
 			}
 		}
-		else if (mainOption == "0") {
+		//User Delete
+		else if (mainOption == "2") {
 			while (true) {
-				for (const auto& person : storage) {
-					std::cout << person.allInfos << std::endl;
+				for (int i = 0; i < storage.size(); i++) {
+					std::cout << i << "|" << storage[i].allInfos << std::endl;
 				}
+
 				Space();
 
-				std::cout << "Pick a Option | ";
-				std::cin >> mainOption;
+				std::cout << "Pick a User or [E]xit Delete options | ";
+				std::cin >> option;
+
+				//Checking if the picked number is not out of bounds and Deleting it
+				if (stoi(option) <= storage.size()) {
+					if (option != "E") {
+						//Deleting User by option Selection
+						storage.erase(storage.begin() + stoi(option));
+					}
+					else {
+						Space();
+
+						std::cout << "Pick a Option | ";
+						optioMain(mainOption);
+						break;
+					}
+				}
+
 				break;
 			}
 		}
+		//Filter Option
+		else if (mainOption == "3") {
+			while (true) {
+				std::cin >> option;
+			}
+		}
+		else mainOption = "0";
 
-	} while (option != "E");
+	} while (mainOption != "E");
 }
