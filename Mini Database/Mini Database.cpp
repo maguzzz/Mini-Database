@@ -19,7 +19,7 @@ public:
 };
 
 void Space() {
-	std::cout << "\n------------------------------------------------------------------------------------\n\n";
+	std::cout << "\n-------------------------------------------------------------------------------\n\n";
 }
 
 void ClearConsole() {
@@ -59,7 +59,7 @@ int main()
 	do {
 		//Showing Options Ui
 		ClearConsole();
-		std::cout << "   [0] Show list   |   [1] New user   |   [2] Delete user   |   [3] Fitler users   |";
+		std::cout << "      [0] Show list      |      [1] New user      |      [2] Delete user      | ";
 		Space();
 
 		//Displaying all Users
@@ -122,34 +122,34 @@ int main()
 				for (int i = 0; i < storage.size(); i++) {
 					std::cout << i << "|" << storage[i].allInfos << std::endl;
 				}
-
 				Space();
 
 				std::cout << "Pick a User or [E]xit Delete options | ";
 				std::cin >> option;
 
 				//Checking if the picked number is not out of bounds and Deleting it
-				if (stoi(option) <= storage.size()) {
-					if (option != "E") {
-						//Deleting User by option Selection
-						storage.erase(storage.begin() + stoi(option));
+				if (option != "E") {
+					try
+					{
+						if (stoi(option) <= storage.size() - 1) {
+							//Deleting User by option Selection
+							storage.erase(storage.begin() + stoi(option));
+							break;
+						}
 					}
-					else {
-						Space();
-
-						std::cout << "Pick a Option | ";
-						optioMain(mainOption);
+					catch (const std::exception&)
+					{
 						break;
 					}
 				}
+				else {
+					Space();
 
+					std::cout << "Pick a Option | ";
+					optioMain(mainOption);
+					break;
+				}
 				break;
-			}
-		}
-		//Filter Option
-		else if (mainOption == "3") {
-			while (true) {
-				std::cin >> option;
 			}
 		}
 		else mainOption = "0";
