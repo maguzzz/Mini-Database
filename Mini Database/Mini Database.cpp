@@ -37,9 +37,9 @@ int main()
 	//Creating a vector with starter data
 	std::vector<Person> storage;
 
-	storage.push_back(Person{ "Mark","First","BaumStreet","5","7891239430", "1190", "Vienna","19.5.2000","89.000" });
-	storage.push_back(Person{ "Stella","Parker","WaterStreet","9","05494239532", "1010", "Vienna","2.9.2004","92.000" });
-	storage.push_back(Person{ "Miles","Moral","BaumStreet","5","789 123 9430", "1190", "Hallo","19.5.2000","10.000" });
+	storage.push_back(Person{ "Mark","First","BaumStreet","5","06921239039", "1190", "Vienna","13.12.2000","89.000" });
+	storage.push_back(Person{ "Stella","Parker","OllStreet","9","05494239532", "1010", "Vienna","2.9.2004","92.000" });
+	storage.push_back(Person{ "Miles","Moral","QuanStreet","19","06923923926", "1190", "Graz","19.5.2000","100.000" });
 
 
 	std::string first;
