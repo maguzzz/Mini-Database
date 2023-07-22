@@ -1,10 +1,10 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 class Person {
 public:
-	std::string index;
 	std::string first;
 	std::string last;
 	std::string street;
@@ -15,19 +15,23 @@ public:
 	std::string birthDate;
 	std::string salary;
 
-	std::string allInfos = { index + "  " + first + "  " + last + "  " + street + "  " + houseNum + "  " + number + "  " + plz + "  " + city + "  " + birthDate + "  " + salary };
 };
 
 void Space() {
-	std::cout << "\n-------------------------------------------------------------------------------\n\n";
+	std::cout << std::endl << std::setw(114) << std::right << "------------------------------------------------------------------------------------------------\n\n";
 }
 
 void ClearConsole() {
 	system("CLS");
 }
 
+void InputQuest(std::string quest, std::string &x) {
+	std::cout << std::setw(65) << std::right << quest;
+	std::cin >> x;
+}
+
 std::string optioMain(std::string& x) {
-	std::cout << "Pick a Option | ";
+	std::cout << std::setw(33) << "Pick a Option | ";
 	std::cin >> x;
 	return x;
 }
@@ -59,14 +63,23 @@ int main()
 	do {
 		//Showing Options Ui
 		ClearConsole();
-		std::cout << "      [0] Show list      |      [1] New user      |      [2] Delete user      | ";
+		std::cout << "\n" << std::setw(112) << std::right << "|         [0] Show list         |        [1] New user         |         [2] Delete user        |";
 		Space();
 
 		//Displaying all Users
 		if (mainOption == "0") {
 			while (true) {
-				for (const auto& person : storage) {
-					std::cout << person.allInfos << std::endl;
+				for (int i = 0; i < storage.size(); i++) {
+					std::cout << std::setw(18) << std::right << "        ";
+					std::cout << std::setw(12) << std::left << storage[i].first;
+					std::cout << std::setw(12) << std::left << storage[i].last;
+					std::cout << std::setw(10) << std::left << storage[i].street;
+					std::cout << std::setw(8) << std::left << storage[i].houseNum;
+					std::cout << std::setw(12) << std::left << storage[i].number;
+					std::cout << std::setw(6) << std::left << storage[i].plz;
+					std::cout << std::setw(10) << std::left << storage[i].city;
+					std::cout << std::setw(12) << std::left << storage[i].birthDate;
+					std::cout << std::setw(8) << std::left << storage[i].salary << "\n";
 				}
 				Space();
 
@@ -79,40 +92,30 @@ int main()
 			while (true) {
 				try
 				{
-					std::cout << "  Enter your First Name| ";
-					std::cin >> first;
-					std::cout << "   Enter your Last Name| ";
-					std::cin >> last;
-					std::cout << "      Enter your Street| ";
-					std::cin >> street;
-					std::cout << "Enter your House Number| ";
-					std::cin >> houseNum;
-					std::cout << "Enter your Phone Number| ";
-					std::cin >> number;
-					std::cout << "         Enter your PLZ| ";
-					std::cin >> plz;
-					std::cout << "        Enter your City| ";
-					std::cin >> city;
-					std::cout << "  Enter your Birth Date| ";
-					std::cin >> birthDate;
-					std::cout << "       Enter your Slary| ";
-					std::cin >> salary;
+					InputQuest("First Name | ", first);
+					InputQuest("Last Name | ", last);
+					InputQuest("Street | ", street);
+					InputQuest("House Number | ", houseNum);
+					InputQuest("Phone Number | ", number);
+					InputQuest("PLZ | ", plz);
+					InputQuest("City | ", city);
+					InputQuest("Birth Date | ", birthDate);
+					InputQuest("Slary | ", salary);
 
 					storage.push_back(Person{ first, last, street, houseNum,number, plz, city, birthDate, salary });
 
 					Space();
 
-					std::cout << "Person added to Database \n";
+					std::cout << std::setw(77) << std::right << "Person added to Database \n";
 
 					Space();
 
-					std::cout << "Pick a Option | ";
-					std::cin >> mainOption;
+					optioMain(mainOption);
 					break;
 				}
 				catch (const std::exception&)
 				{
-					std::cout << "[ERROR] Try Again\n\n";
+					std::cout << std::setw(16) << "[ERROR] Try Again\n\n";
 				}
 			}
 		}
@@ -120,11 +123,21 @@ int main()
 		else if (mainOption == "2") {
 			while (true) {
 				for (int i = 0; i < storage.size(); i++) {
-					std::cout << i << "|" << storage[i].allInfos << std::endl;
+					std::cout << std::setw(18) << std::right << i << " | ";
+					std::cout << std::setw(12) << std::left << storage[i].first;
+					std::cout << std::setw(12) << std::left << storage[i].last;
+					std::cout << std::setw(10) << std::left << storage[i].street;
+					std::cout << std::setw(8) << std::left << storage[i].houseNum;
+					std::cout << std::setw(12) << std::left << storage[i].number;
+					std::cout << std::setw(6) << std::left << storage[i].plz;
+					std::cout << std::setw(10) << std::left << storage[i].city;
+					std::cout << std::setw(12) << std::left << storage[i].birthDate;
+					std::cout << std::setw(8) << std::left << storage[i].salary << "\n";
 				}
+
 				Space();
 
-				std::cout << "Pick a User or [E]xit Delete options | ";
+				std::cout << std::setw(45) << std::right << "Number to Delete or [E]xit| ";
 				std::cin >> option;
 
 				//Checking if the picked number is not out of bounds and Deleting it
@@ -144,8 +157,6 @@ int main()
 				}
 				else {
 					Space();
-
-					std::cout << "Pick a Option | ";
 					optioMain(mainOption);
 					break;
 				}
