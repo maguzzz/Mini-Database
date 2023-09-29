@@ -54,7 +54,6 @@ int main()
 	std::string plz;
 	std::string city;
 	std::string birthDate;
-	std::string salary;
 
 	std::string mainOption = "0";
 	std::string option;
@@ -73,13 +72,12 @@ int main()
 					std::cout << std::setw(18) << std::right << "        ";
 					std::cout << std::setw(12) << std::left << storage[i].first;
 					std::cout << std::setw(12) << std::left << storage[i].last;
-					std::cout << std::setw(10) << std::left << storage[i].street;
-					std::cout << std::setw(8) << std::left << storage[i].houseNum;
-					std::cout << std::setw(12) << std::left << storage[i].number;
-					std::cout << std::setw(6) << std::left << storage[i].plz;
-					std::cout << std::setw(10) << std::left << storage[i].city;
-					std::cout << std::setw(12) << std::left << storage[i].birthDate;
-					std::cout << std::setw(8) << std::left << storage[i].salary << "\n";
+					std::cout << std::setw(16) << std::left << storage[i].street;
+					std::cout << std::setw(6) << std::left << storage[i].houseNum;
+					std::cout << std::setw(14) << std::left << storage[i].number;
+					std::cout << std::setw(10) << std::left << storage[i].plz;
+					std::cout << std::setw(12) << std::left << storage[i].city;
+					std::cout << std::setw(12) << std::left << storage[i].birthDate << "\n";
 				}
 				Space();
 
@@ -100,9 +98,8 @@ int main()
 					InputQuest("PLZ | ", plz);
 					InputQuest("City | ", city);
 					InputQuest("Birth Date | ", birthDate);
-					InputQuest("Slary | ", salary);
 
-					storage.push_back(Person{ first, last, street, houseNum,number, plz, city, birthDate, salary });
+					storage.push_back(Person{ first, last, street, houseNum,number, plz, city, birthDate});
 
 					Space();
 
@@ -123,16 +120,15 @@ int main()
 		else if (mainOption == "2") {
 			while (true) {
 				for (int i = 0; i < storage.size(); i++) {
-					std::cout << std::setw(18) << std::right << i << " | ";
+					std::cout << std::setw(18) << std::right << "        ";
 					std::cout << std::setw(12) << std::left << storage[i].first;
 					std::cout << std::setw(12) << std::left << storage[i].last;
-					std::cout << std::setw(10) << std::left << storage[i].street;
-					std::cout << std::setw(8) << std::left << storage[i].houseNum;
-					std::cout << std::setw(12) << std::left << storage[i].number;
-					std::cout << std::setw(6) << std::left << storage[i].plz;
-					std::cout << std::setw(10) << std::left << storage[i].city;
-					std::cout << std::setw(12) << std::left << storage[i].birthDate;
-					std::cout << std::setw(8) << std::left << storage[i].salary << "\n";
+					std::cout << std::setw(16) << std::left << storage[i].street;
+					std::cout << std::setw(6) << std::left << storage[i].houseNum;
+					std::cout << std::setw(14) << std::left << storage[i].number;
+					std::cout << std::setw(10) << std::left << storage[i].plz;
+					std::cout << std::setw(12) << std::left << storage[i].city;
+					std::cout << std::setw(12) << std::left << storage[i].birthDate << "\n";
 				}
 
 				Space();
@@ -165,5 +161,5 @@ int main()
 		}
 		else mainOption = "0";
 
-	} while (mainOption != "E");
+	}while (mainOption != "E");
 }
