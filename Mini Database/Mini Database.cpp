@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <mysql.h>
 
 class Person {
 public:
@@ -25,7 +26,7 @@ void ClearConsole() {
 	system("CLS");
 }
 
-void InputQuest(std::string quest, std::string &x) {
+void InputQuest(std::string quest, std::string& x) {
 	std::cout << std::setw(65) << std::right << quest;
 	std::cin >> x;
 }
@@ -161,5 +162,5 @@ int main()
 		}
 		else mainOption = "0";
 
-	}while (mainOption != "E");
+	} while (mainOption != "E");
 }
