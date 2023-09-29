@@ -14,8 +14,6 @@ public:
 	std::string plz;
 	std::string city;
 	std::string birthDate;
-	std::string salary;
-
 };
 
 void Space() {
@@ -42,9 +40,9 @@ int main()
 	//Creating a vector with starter data
 	std::vector<Person> storage;
 
-	storage.push_back(Person{ "Mark","First","BaumStreet","5","06921239039", "1190", "Vienna","13.12.2000","89.000" });
-	storage.push_back(Person{ "Stella","Parker","OllStreet","9","05494239532", "1010", "Vienna","2.9.2004","92.000" });
-	storage.push_back(Person{ "Miles","Moral","QuanStreet","19","06923923926", "1190", "Graz","19.5.2000","100.000" });
+	storage.push_back(Person{ "Mark","First","BaumStreet","5","06921239039", "1190", "Vienna","13.12.2000"});
+	storage.push_back(Person{ "Stella","Parker","OllStreet","9","05494239532", "1010", "Vienna","2.9.2004"});
+	storage.push_back(Person{ "Miles","Moral","QuanStreet","19","06923923926", "1190", "Graz","19.5.2000"});
 
 
 	std::string first;
