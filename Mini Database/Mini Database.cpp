@@ -6,6 +6,7 @@
 
 class Person {
 public:
+	std::string pos;
 	std::string first;
 	std::string last;
 	std::string street;
@@ -37,13 +38,18 @@ std::string optioMain(std::string& x) {
 
 int main()
 {
+	//Connecting to DB
+
+	MYSQL* conn;
+	MYSQL_RES* res;
+	MYSQL_ROW row;
+
+	conn = mysql_init(NULL);
+	conn = mysql_real_connect(conn, "localhost", "root", "Passwort", "db_usermanage", 3306, NULL, 0);
+
+
 	//Creating a vector with starter data
 	std::vector<Person> storage;
-
-	storage.push_back(Person{ "Mark","First","BaumStreet","5","06921239039", "1190", "Vienna","13.12.2000"});
-	storage.push_back(Person{ "Stella","Parker","OllStreet","9","05494239532", "1010", "Vienna","2.9.2004"});
-	storage.push_back(Person{ "Miles","Moral","QuanStreet","19","06923923926", "1190", "Graz","19.5.2000"});
-
 
 	std::string first;
 	std::string last;
@@ -53,14 +59,38 @@ int main()
 	std::string plz;
 	std::string city;
 	std::string birthDate;
+	std::string query;
 
+	int posCount = 0;
 	std::string mainOption = "0";
 	std::string option;
 
 
+	if (conn) {
+		query = "SELECT * FROM tb_user";
+
+		mysql_query(conn, query.c_str());
+
+		MYSQL_RES* res = mysql_store_result(conn);
+
+		while ((row = mysql_fetch_row(res))) {
+			storage.push_back(Person{ row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9] });
+			posCount++;
+		}
+	}
+
 	do {
 		//Showing Options Ui
 		ClearConsole();
+
+		if (conn) {
+			std::cout << std::setw(30) << std::right << "[DB] CONNECTED" << std::endl;
+			std::cout << posCount;
+		}
+		else {
+			std::cout << std::setw(30) << std::right << "[DB] NO CONNECTION" << std::endl;
+		}
+
 		std::cout << "\n" << std::setw(112) << std::right << "|         [0] Show list         |        [1] New user         |         [2] Delete user        |";
 		Space();
 
@@ -69,13 +99,14 @@ int main()
 			while (true) {
 				for (int i = 0; i < storage.size(); i++) {
 					std::cout << std::setw(18) << std::right << "        ";
-					std::cout << std::setw(12) << std::left << storage[i].first;
-					std::cout << std::setw(12) << std::left << storage[i].last;
+					std::cout << std::setw(4) << std::left << storage[i].pos;
+					std::cout << std::setw(11) << std::left << storage[i].first;
+					std::cout << std::setw(11) << std::left << storage[i].last;
 					std::cout << std::setw(16) << std::left << storage[i].street;
 					std::cout << std::setw(6) << std::left << storage[i].houseNum;
 					std::cout << std::setw(14) << std::left << storage[i].number;
 					std::cout << std::setw(10) << std::left << storage[i].plz;
-					std::cout << std::setw(12) << std::left << storage[i].city;
+					std::cout << std::setw(10) << std::left << storage[i].city;
 					std::cout << std::setw(12) << std::left << storage[i].birthDate << "\n";
 				}
 				Space();
@@ -98,7 +129,14 @@ int main()
 					InputQuest("City | ", city);
 					InputQuest("Birth Date | ", birthDate);
 
-					storage.push_back(Person{ first, last, street, houseNum,number, plz, city, birthDate});
+					storage.push_back(Person{ std::to_string(posCount), first, last, street, houseNum,number, plz, city, birthDate });
+
+					query = "INSERT INTO tb_user (pos, firstN, lastN, street, houseNum, number, plz, city, birthdate) VALUES ('" + std::to_string(posCount) + "' , '" + first + "', '" + last + "', '" + street + "', '" + houseNum + "', '" + number + "', '" + plz + "', '" + city + "', '" + birthDate + "')";
+					posCount++;
+
+					if (mysql_query(conn, query.c_str())) {
+						mysql_close(conn);
+					}
 
 					Space();
 
@@ -120,13 +158,14 @@ int main()
 			while (true) {
 				for (int i = 0; i < storage.size(); i++) {
 					std::cout << std::setw(18) << std::right << "        ";
-					std::cout << std::setw(12) << std::left << storage[i].first;
-					std::cout << std::setw(12) << std::left << storage[i].last;
+					std::cout << std::setw(4) << std::left << storage[i].pos;
+					std::cout << std::setw(11) << std::left << storage[i].first;
+					std::cout << std::setw(11) << std::left << storage[i].last;
 					std::cout << std::setw(16) << std::left << storage[i].street;
 					std::cout << std::setw(6) << std::left << storage[i].houseNum;
 					std::cout << std::setw(14) << std::left << storage[i].number;
 					std::cout << std::setw(10) << std::left << storage[i].plz;
-					std::cout << std::setw(12) << std::left << storage[i].city;
+					std::cout << std::setw(10) << std::left << storage[i].city;
 					std::cout << std::setw(12) << std::left << storage[i].birthDate << "\n";
 				}
 
@@ -140,9 +179,37 @@ int main()
 					try
 					{
 						if (stoi(option) <= storage.size() - 1) {
-							//Deleting User by option Selection
+
+							//Deleting From DB
+							query = "DELETE FROM tb_user WHERE pos = " + option + ";";
+							if (mysql_query(conn, query.c_str())) {
+								mysql_close(conn);
+							}
+
+							//Deleting Form Vector
 							storage.erase(storage.begin() + stoi(option));
-							break;
+
+							//Updating current data
+							query = "SELECT * FROM tb_user";
+							if (mysql_query(conn, query.c_str())) {
+								mysql_close(conn);
+							}
+
+							MYSQL_RES* res = mysql_store_result(conn);
+
+							posCount = 0;
+
+							//Updating all Pos numbers
+							while ((row = mysql_fetch_row(res))) {
+								query = "UPDATE tb_user SET pos = " + std::to_string(posCount) + " WHERE pos = " + std::string(row[1]);
+								if (mysql_query(conn, query.c_str())) {
+									mysql_close(conn);
+								}
+								posCount++;
+							}
+
+							mysql_free_result(res);
+
 						}
 					}
 					catch (const std::exception&)
