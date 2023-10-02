@@ -85,7 +85,6 @@ int main()
 
 		if (conn) {
 			std::cout << std::setw(30) << std::right << "[DB] CONNECTED" << std::endl;
-			std::cout << posCount;
 		}
 		else {
 			std::cout << std::setw(30) << std::right << "[DB] NO CONNECTION" << std::endl;
@@ -205,6 +204,14 @@ int main()
 								if (mysql_query(conn, query.c_str())) {
 									mysql_close(conn);
 								}
+
+								posCount++;
+							}
+							
+							posCount = 0;
+
+							for (int i = 0; i < storage.size(); i++) {
+								storage[i].pos = std::to_string(posCount);
 								posCount++;
 							}
 
