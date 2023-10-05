@@ -6,7 +6,7 @@ This is a C++ and MySQL console program that manages a list of users. It allows 
 ## How to setup
 
 MySQL Installer Download:
-- Go to https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/installer
+- Go to https://dev.mysql.com/downloads/installer
 - Install MySQL Installer for your OS
 - Install MySQL Server 8.0.34.
 - Install MySQL Connector/C++ 1.1.11.
