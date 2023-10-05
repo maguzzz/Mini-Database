@@ -1,0 +1,14 @@
+CREATE DATABASE db_usermanage;
+USE db_usermanage;
+CREATE TABLE tb_user(
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+pos varchar(50), 
+firstN varchar(50), 
+lastN varchar(50),
+street varchar(50),
+HouseNum varchar(50),
+number varchar(11),
+plz varchar(50),
+city varchar(50),
+birthdate varchar(10)
+);
