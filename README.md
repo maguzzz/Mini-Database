@@ -24,6 +24,9 @@ Add DLL Files:
 Create New Database:
 - Execute "Create DB.txt" in MySQL Command Line or import "db_usermanage_tb_user.sql" into your preferred database tool.
 
+Create DB Connection:
+- Change in Line 48 Passwort to your MySQL Password
+  
 <br>
 <br>
 
