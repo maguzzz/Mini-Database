@@ -1,15 +1,41 @@
 # Mini Database
 
-This is a C++ console program that manages a list of users. It allows you to add, delete, and display user information. The program provides a menu-driven interface in the console where you can easily perform these operations.
+This is a C++ and MySQL console program that manages a list of users. It allows you to add, delete, and display user information. The program provides a menu-driven interface in the console where you can easily perform these operations.
+<br>
+<br>
+## How to setup
+
+MySQL Server 8.0.34 Download:
+- Download MySQL Server 8.0.34 for your OS.
+- Install following on-screen instructions.
+<br>
+
+MySQL Connector/C++ 1.1.11 Download:
+- Get MySQL Connector/C++ 1.1.11.
+- Install following on-screen instructions.
+<br>
+
+Run Project in Release:
+- Run the project in Release mode.
+<br>
+
+Add DLL Files:
+- Copy DLL files from "Additional Info" to the Release Folder.
+<br>
+
+Create New Database:
+- Execute "Create DB.txt" in MySQL Command Line or import "db_usermanage_tb_user.sql" into your preferred database tool.
+
+<br>
+<br>
 
 <h2>Add New User</h2>
 
 
-<img src="https://github.com/maguzzz/Mini-Database/assets/65002100/5c42e044-7fcd-4eee-8a19-62eb66522461" width="800" alt="addUser">
+![AddUser](https://github.com/maguzzz/Mini-Database/assets/65002100/3fd99b01-7034-4afc-82bd-47309bcdd890)
 
 
 <h2>Delete User</h2>
 
-<img src="https://github.com/maguzzz/Mini-Database/assets/65002100/c4482cd6-d70c-41b0-821c-bd8b86413748" width="800" alt="deleteUser">
 
-
+![Delete](https://github.com/maguzzz/Mini-Database/assets/65002100/10805209-6877-4e2c-97f5-6d2d878f0cf1)
