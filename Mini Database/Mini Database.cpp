@@ -96,17 +96,19 @@ int main()
 		//Displaying all Users
 		if (mainOption == "0") {
 			while (true) {
-				for (int i = 0; i < storage.size(); i++) {
-					std::cout << std::setw(18) << std::right << "        ";
-					std::cout << std::setw(4) << std::left << storage[i].pos;
-					std::cout << std::setw(11) << std::left << storage[i].first;
-					std::cout << std::setw(11) << std::left << storage[i].last;
-					std::cout << std::setw(16) << std::left << storage[i].street;
-					std::cout << std::setw(6) << std::left << storage[i].houseNum;
-					std::cout << std::setw(14) << std::left << storage[i].number;
-					std::cout << std::setw(10) << std::left << storage[i].plz;
-					std::cout << std::setw(10) << std::left << storage[i].city;
-					std::cout << std::setw(12) << std::left << storage[i].birthDate << "\n";
+				if (storage.size() > 0) {
+					for (int i = 0; i < storage.size(); i++) {
+						std::cout << std::setw(18) << std::right << "        ";
+						std::cout << std::setw(4) << std::left << storage[i].pos;
+						std::cout << std::setw(11) << std::left << storage[i].first;
+						std::cout << std::setw(11) << std::left << storage[i].last;
+						std::cout << std::setw(16) << std::left << storage[i].street;
+						std::cout << std::setw(6) << std::left << storage[i].houseNum;
+						std::cout << std::setw(14) << std::left << storage[i].number;
+						std::cout << std::setw(10) << std::left << storage[i].plz;
+						std::cout << std::setw(10) << std::left << storage[i].city;
+						std::cout << std::setw(12) << std::left << storage[i].birthDate << "\n";
+					}
 				}
 				Space();
 
@@ -177,19 +179,19 @@ int main()
 				if (option != "E") {
 					try
 					{
-						if (stoi(option) <= storage.size() - 1) {
+						if (stoi(option) <= storage.size() - 1 && stoi(option) > -1 && storage.size() != 0){
 
 							//Deleting From DB
 							query = "DELETE FROM tb_user WHERE pos = " + option + ";";
-							if (mysql_query(conn, query.c_str())) {
-								mysql_close(conn);
-							}
+								if (mysql_query(conn, query.c_str())) {
+									mysql_close(conn);
+								}
 
 							//Deleting Form Vector
 							storage.erase(storage.begin() + stoi(option));
 
-							//Updating current data
-							query = "SELECT * FROM tb_user";
+								//Updating current data
+								query = "SELECT * FROM tb_user";
 							if (mysql_query(conn, query.c_str())) {
 								mysql_close(conn);
 							}
@@ -207,7 +209,7 @@ int main()
 
 								posCount++;
 							}
-							
+
 							posCount = 0;
 
 							for (int i = 0; i < storage.size(); i++) {
@@ -218,6 +220,7 @@ int main()
 							mysql_free_result(res);
 
 						}
+						else{ throw std::invalid_argument("Number not found"); }
 					}
 					catch (const std::exception&)
 					{
