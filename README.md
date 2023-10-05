@@ -5,14 +5,12 @@ This is a C++ and MySQL console program that manages a list of users. It allows 
 <br>
 ## How to setup
 
-MySQL Server 8.0.34 Download:
-- Download MySQL Server 8.0.34 for your OS.
-- Install following on-screen instructions.
-<br>
-
-MySQL Connector/C++ 1.1.11 Download:
-- Get MySQL Connector/C++ 1.1.11.
-- Install following on-screen instructions.
+MySQL Installer Download:
+- Go to https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/installer
+- Install MySQL Installer for your OS
+- Install MySQL Server 8.0.34.
+- Install MySQL Connector/C++ 1.1.11.
+- follow on-screen instructions.
 <br>
 
 Run Project in Release:
