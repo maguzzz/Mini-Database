@@ -137,7 +137,7 @@ int main()
 
 					if (mysql_query(conn, query.c_str()) != 0) {
 
-						std::cout << std::setw(80) << std::right << "Input Error pls Input Correct Format\n";
+						std::cout << std::setw(80) << std::right << "Input ERROR pls input in correct format\n";
 
 					}
 					else {
