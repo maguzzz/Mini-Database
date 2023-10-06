@@ -130,18 +130,22 @@ int main()
 					InputQuest("City | ", city);
 					InputQuest("Birth Date | ", birthDate);
 
-					storage.push_back(Person{ std::to_string(posCount), first, last, street, houseNum,number, plz, city, birthDate });
-
 					query = "INSERT INTO tb_user (pos, firstN, lastN, street, houseNum, number, plz, city, birthdate) VALUES ('" + std::to_string(posCount) + "' , '" + first + "', '" + last + "', '" + street + "', '" + houseNum + "', '" + number + "', '" + plz + "', '" + city + "', '" + birthDate + "')";
 					posCount++;
 
-					if (mysql_query(conn, query.c_str())) {
-						mysql_close(conn);
-					}
-
 					Space();
 
-					std::cout << std::setw(77) << std::right << "Person added to Database \n";
+					if (mysql_query(conn, query.c_str()) != 0) {
+
+						std::cout << std::setw(80) << std::right << "Input Error pls Input Correct Format\n";
+
+					}
+					else {
+
+						storage.push_back(Person{ std::to_string(posCount), first, last, street, houseNum,number, plz, city, birthDate });
+						std::cout << std::setw(77) << std::right << "Person added to Database \n";
+					}
+
 
 					Space();
 
