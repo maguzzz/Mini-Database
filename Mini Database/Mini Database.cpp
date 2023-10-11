@@ -84,7 +84,7 @@ int main()
 		ClearConsole();
 
 		if (conn) {
-			std::cout << std::setw(30) << std::right << "[DB] CONNECTED" << std::endl;
+			std::cout << std::setw(30) << std::right << "[DB] CONNECTED " << posCount << std::endl;
 		}
 		else {
 			std::cout << std::setw(30) << std::right << "[DB] NO CONNECTION" << std::endl;
@@ -131,7 +131,6 @@ int main()
 					InputQuest("Birth Date | ", birthDate);
 
 					query = "INSERT INTO tb_user (pos, firstN, lastN, street, houseNum, number, plz, city, birthdate) VALUES ('" + std::to_string(posCount) + "' , '" + first + "', '" + last + "', '" + street + "', '" + houseNum + "', '" + number + "', '" + plz + "', '" + city + "', '" + birthDate + "')";
-					posCount++;
 
 					Space();
 
@@ -143,6 +142,7 @@ int main()
 					else {
 
 						storage.push_back(Person{ std::to_string(posCount), first, last, street, houseNum,number, plz, city, birthDate });
+						posCount++;
 						std::cout << std::setw(77) << std::right << "Person added to Database \n";
 					}
 
